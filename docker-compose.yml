@@ -1,0 +1,22 @@
+version: '3'
+services:
+    db:
+        build: ./mysql/build/
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: demo
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+          - 8888:8080
+    jenkins:
+        build: ./app/build/
+        ports:
+          - 8080:8080
+          - 50000:50000
+        volumes: 
+          - $PWD/data:/var/jenkins_home
+        
